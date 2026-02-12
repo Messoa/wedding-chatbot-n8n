@@ -1,0 +1,1139 @@
+{
+  "name": "mon bot d'indentification",
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "Number:",
+              "value": "={{ $json.body.messages[0].from }}"
+            },
+            {
+              "name": "Timestamp",
+              "value": "={{ $json.body.messages[0].timestamp }}"
+            }
+          ],
+          "string": [
+            {
+              "name": "userMessage",
+              "value": "={{ $json.body.messages[0].text.body }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e5841e94-587f-4c64-97f7-d27b0cb6e642",
+      "name": "Extract Message Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc",
+          "mode": "list",
+          "cachedResultName": "GOOGLE ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Feuille 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1F4CmhJ_MbLSUbNVQKm06KBfNQxNTVfhmQWWDR-v_Vmo/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Number",
+              "lookupValue": "={{ $json['Number:'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8c6a3c88-ac8d-40b1-8425-bdb350a4f33d",
+      "name": "Check User in Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -448,
+        112
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m8OJ27gc09Dq8NCN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Number }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "id": "02704c4b-8914-4ca2-9b97-dc99ae6ea68c",
+      "name": "User Exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "=1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Feuille 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Number": "={{ $('WhatsApp Webhook').item.json.body.messages[0].from }}",
+            "Status": "q1_pending"
+          },
+          "matchingColumns": [
+            "Number"
+          ],
+          "schema": [
+            {
+              "id": "Number",
+              "displayName": "Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phonenumber",
+              "displayName": "Phonenumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name ",
+              "displayName": "Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Attendance",
+              "displayName": "Attendance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ConfirmationDelay",
+              "displayName": "ConfirmationDelay",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Seats",
+              "displayName": "Seats",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DietaryRestriction",
+              "displayName": "DietaryRestriction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DietaryDetails",
+              "displayName": "DietaryDetails",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PreferredMeal",
+              "displayName": "PreferredMeal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MealDetails",
+              "displayName": "MealDetails",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "948f3d22-ebce-4ac4-945b-55f8b2ec68d1",
+      "name": "Create New User",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m8OJ27gc09Dq8NCN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "currentQuestion",
+              "value": "q1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6882e37f-1f3f-4262-9570-8b0b211fb342",
+      "name": "Set Question 1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={{\n{\n\"to\": $('WhatsApp Webhook').item.json.body.messages[0].chat_id,\n\"body\": $json.output\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1936,
+        0
+      ],
+      "id": "f4a02445-43d3-4638-9da8-94b50a6b6191",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "QxCnCjOpYEm3yXrG",
+          "name": "Bearer Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "0a00989f-de24-49f6-b594-f232e3c644f9",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1424,
+        272
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "rr3kg10ofZRQbuuo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('WhatsApp Webhook').item.json.body.messages[0].text.body }}",
+        "options": {
+          "systemMessage": "=You are \"The Wedding Expert,\" an AI agent dedicated to making all wedding-related information clear and easy for guests to understand.\n\nFeatures\n- Process and respond to text messages\n\nPurpose and Tasks\n-Analyze the user's request and provide a concise and user-friendly response, with concrete examples if necessary.\n-Use the tool to retrieve relevant information from the internal wedding folder.\n-Providing a simplified and objective explanation of the requested information.\n-For user messages: extract the main question related to the wedding. In case of ambiguity, request clarification or keywords.\n\nRules & Boundaries\n-Always start by greeting the user by his username:{{ $('WhatsApp Webhook').item.json.body.messages[0].from_name }} in the first message of the conversation only.\n-Your expertise is strictly limited to information related to weddings and guest questions.\n-You are prohibited from discussing topics unrelated to weddings.\n-STRICT CONTROL: If the tool is not used, the answer MUST be one sentence long, LESS THAN 20 words.**\n-For any question unrelated to marriage: answer in one sentence (20 words maximum), including this reminder.\n-Prioritize clarity: start with a direct, general answer before providing details.\n-Acknowledge the limitations of your information: if information is missing, state it and suggest contacting the organizers.\n-Do not speculate or invent details; if in doubt, ask for clarification.\n-Always answer in the same language than the user.\n\nExample answer (question unrelated to marriage):\n-User: \"What is the best movie of all time?\"\n-Agent: \"Movie tastes are subjective, but my primary role is to answer questions related to marriage.\"\n\n-User: \"What's the weather like today?\"\n-Agent: \"I don't give weather forecasts ,but my primary role is to answer questions related to marriage.\"\n\n- User: “Hey, what is Tinder?”\n- Agent: “Tinder is a dating app,but my primary role is to answer questions related to marriage.”\n\n- User: \"Who won the last World Cup?\"\n- Agent: \"Argentina won in 2022,but my primary role is to answer questions related to marriage.\"\n\n- User: \"What is 2+2?\"\n- Agent: \"2+2 equals 4, but my primary role is to answer questions related to marriage.\"\n\nExample of what NOT to do:\n-User: \"What is the capital of France?\"\n- Agent: \"I can't find that information in my documents, but the capital of France is Paris. I am designed to answer questions related to marriage.\" (This answer is incorrect because it is too long and provides irrelevant information.)\n\n- User: \"What is the most popular video game?\"\n- Agent: \"Many people like Fortnite and Minecraft, but I am designed to answer questions related to marriage.\" (This answer is incorrect because it is too long and provides irrelevant information.)\n\n- User: \"Tell me about cars.\"\n- Agent: \"Cars are a means of transportation. There are many different types, but I am designed to answer questions related to marriage.\" (This answer is incorrect because it contains more than one sentence and is too long.)\n\n- User: \"What is a good book to read?\" \"\n- Agent: \"I can't recommend books because my role is to answer your questions and concerns related to marriage.\" (This answer is incorrect because it is too long and verbose.)\n\nAction Layer\n-Identify the query.\n-Search the tool\n-If results are found: provide a simplified answer\n-If no results are found: fallback response – a sentence of no more than 20 words reminding the user of your role in the wedding planning.\n-If the query is not related to a wedding: a fallback response of a single sentence of no more than 20 words with a reminder.\n\nAdditionnal context\n- The user's name is {{ $('WhatsApp Webhook').item.json.body.messages[0].from_name }}\n- Always give concise answers\n- The current time is {{ $now }}\n- All fallback answers must be exactly one sentence, under 20 words.\n-* **STRICT CONSTRAINT: Do not make up things, when not sure ask for more details.\n"
+        }
+      },
+      "id": "c73ee07d-cead-4632-a10e-bf20332e04b0",
+      "name": "AI Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1552,
+        16
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve data from the knowledge base ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "myindex",
+          "mode": "list",
+          "cachedResultName": "myindex"
+        },
+        "topK": 20,
+        "useReranker": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1760,
+        352
+      ],
+      "id": "a9a7183a-83d0-49d7-baa9-c91d28979952",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "a9gnPt8YKYTh2jdU",
+          "name": "PineconeApi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "topN": 5
+      },
+      "type": "@n8n/n8n-nodes-langchain.rerankerCohere",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        592
+      ],
+      "id": "e3d9402d-02e6-4494-8d12-78ab8f1cf6ab",
+      "name": "Reranker Cohere1",
+      "credentials": {
+        "cohereApi": {
+          "id": "Ixucbcf53I3Seaxw",
+          "name": "CohereApi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1728,
+        608
+      ],
+      "id": "12131071-e513-4b8f-94bb-fd5893c58ab8",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "rr3kg10ofZRQbuuo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c53cd9f9-77c1-4331-98ff-bfc9bdf95a3c",
+              "name": "=text",
+              "type": "string",
+              "value": "={{ $('WhatsApp Webhook').item.json.body.messages[0].text.body }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aab975db-4e81-44dc-9358-a3273d8069ef",
+      "name": "Text",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1200,
+        128
+      ],
+      "typeVersion": 3.4,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Status }}",
+              "value2": "=faq_mode"
+            }
+          ]
+        }
+      },
+      "id": "fc33aef2-5db7-4f86-94ba-4aaaf5d78dda",
+      "name": "FAQ Mode?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        656,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc",
+          "mode": "list",
+          "cachedResultName": "GOOGLE ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Feuille 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qMkLMq1moZgDmxykJnxh5_LxMwDxHVo4kNtO0IH5tHc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Number": "={{ $('WhatsApp Webhook').item.json.body.messages[0].from }}",
+            "Phonenumber": "={{ $json.Phonenumber }}",
+            "Attendance": "={{ $json.Attendance }}",
+            "ConfirmationDelay": "={{ $json.ConfirmationDelay }}",
+            "Seats": "={{ $json.Seats }}",
+            "DietaryRestriction": "={{ $json.DietaryRestriction }}",
+            "DietaryDetails": "={{ $json.DietaryDetails }}",
+            "PreferredMeal": "={{ $json.PreferredMeal }}",
+            "MealDetails": "={{ $json.MealDetails }}",
+            "Timestamp": "={{ $json.Timestamp }}",
+            "Response": "={{ $json.Response }}",
+            "Status": "={{ $json.Status }}",
+            "Name": "={{ $json.Name }}"
+          },
+          "matchingColumns": [
+            "Number"
+          ],
+          "schema": [
+            {
+              "id": "Number",
+              "displayName": "Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phonenumber",
+              "displayName": "Phonenumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Attendance",
+              "displayName": "Attendance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ConfirmationDelay",
+              "displayName": "ConfirmationDelay",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Seats",
+              "displayName": "Seats",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DietaryRestriction",
+              "displayName": "DietaryRestriction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DietaryDetails",
+              "displayName": "DietaryDetails",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PreferredMeal",
+              "displayName": "PreferredMeal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MealDetails",
+              "displayName": "MealDetails",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "b8db50ee-51dd-4596-a195-a8a951114d8c",
+      "name": "Update User Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        400,
+        224
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m8OJ27gc09Dq8NCN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "08fd0c80-307e-4f45-b1de-35192ee4ec5e",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.body.messages[0].text.body }}",
+                    "rightValue": ""
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "40163b2d-112b-4375-a4fd-4f5e7593bc1a",
+      "name": "Input type",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        -1184,
+        144
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={{ { \"to\": $(\"WhatsApp Webhook\").item.json.body.messages[0].from, \"body\": $json.Response } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        432
+      ],
+      "id": "b1065e19-6213-4428-a4d4-06808fb876b2",
+      "name": "HTTP Request4",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "QxCnCjOpYEm3yXrG",
+          "name": "Bearer Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=memory_{{ $('WhatsApp Webhook').item.json.body.messages[0].chat_id }}",
+        "contextWindowLength": 1
+      },
+      "id": "794f404a-b673-4bdf-86d8-47e883013a9f",
+      "name": "Simple Memory1",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        1616,
+        320
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={\n  \"to\": \"{{ $node['WhatsApp Webhook'].json['body']['messages'][0]['from'] }}\",\n \"body\": \"🇫🇷 Bienvenue sur l’Assistant IA du Mariage 🤍\\nNous sommes ravis de vous accueillir parmi les invités ! ✨\\nCommençons ensemble votre enregistrement — merci d’indiquer votre numéro de téléphone 📱\\n\\n🇬🇧 Welcome to the Wedding AI Assistant 🤍\\nWe’re delighted to have you among the guests! ✨\\nLet’s begin your registration — please share your phone number 📱\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        0
+      ],
+      "id": "c7dda79c-4a0d-441a-8788-8c4818889828",
+      "name": "HTTP Request3",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "QxCnCjOpYEm3yXrG",
+          "name": "Bearer Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={\n  \"to\": \"{{ $node['WhatsApp Webhook'].json['body']['messages'][0]['from'] }}\",\n  \"body\": \"Thank you for your message! 🌸\\nAt the moment, this wedding assistant only supports text messages.\\nPlease reply with a text message to continue 🤍\\n\\nMerci pour votre message ! 🌸\\nPour le moment, cet assistant de mariage accepte uniquement les messages textes.\\nMerci de répondre par un message texte pour continuer 🤍\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -672,
+        688
+      ],
+      "id": "a7feda9b-a4ec-42c2-a222-399b47231e4f",
+      "name": "HTTP Request7",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "QxCnCjOpYEm3yXrG",
+          "name": "Bearer Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "c79593ab-2745-4d72-8840-7c65c7c4ef40",
+        "options": {}
+      },
+      "id": "719e17ea-81ac-4876-bdaa-fea1c79e11b3",
+      "name": "WhatsApp Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1856,
+        128
+      ],
+      "webhookId": "c79593ab-2745-4d72-8840-7c65c7c4ef40"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "907f6ae9-b174-4a39-a90c-81a94b3c07f6",
+              "leftValue": "={{ $json.body.messages[0].from_me }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7825f30b-9d6b-44ff-9bf4-28f98a5c0498",
+              "leftValue": "={{ $json.body.messages[0].action.type }}",
+              "rightValue": "=reaction",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -928,
+        112
+      ],
+      "id": "64c118cd-f92b-4bd0-878e-b7a8cb8acc0c",
+      "name": "Filter5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// === VARIABLES PRINCIPALES ===\nconst input = $input.first().json;\n\nconst userStatus = input.Status?.trim() || 'q1_pending';\nconst userMessage = $('Extract Message Data').first().json.userMessage?.trim() || '';\nconst Number = input.Number;\n\n// Extraire la langue du Status (format: q2_pending_fr ou q2_pending_en)\nlet userLanguage = 'en';\nif (userStatus.includes('_fr')) {\n  userLanguage = 'fr';\n} else if (userStatus.includes('_en')) {\n  userLanguage = 'en';\n}\n\n// === DICTIONNAIRE DE TRADUCTIONS ===\nconst translations = {\n  en: {\n    q1: 'Please could you confirm your full name?',\n    q2: 'Would you be attending our ceremony and reception? (Yes/No)',\n    q3: 'How soon could you confirm your attendance? (a) in 24hrs (b) in 3 days (c) in 1 week',\n    q4: 'How many seats should we reserve for you? (1 or 2)',\n    q5: 'Do you have any dietary restrictions? (Yes/No)',\n    q6b: 'Please share the details of your dietary restrictions.',\n    q7: 'Do you have a preferred meal? (Yes/No)',\n    q7b: 'Please share the details of your preferred meal.',\n    summary: `✅ Registration Summary\\n\\n📋 Number: {number}\\n📞 Phone: {phone}\\n👤 Name: {name}\\n🎟️ Attendance: {attendance}\\n⏳ Confirmation delay: {delay}\\n🪑 Seats: {seats}\\n🥗 Dietary restriction: {restriction}\\n🍴 Dietary details: {details}\\n🍽️ Preferred meal: {meal}\\n{mealDetails}\\n\\nIf everything looks correct, please reply *yes* to confirm.\\nIf you need to update your information, type *start over* to restart.`,\n    restart: 'Registration restarted. Please enter your phone number again.',\n    complete: '🎉 Registration is closed! You can now ask questions about the event in any language you like.',\n    confirmPrompt: 'Please type *yes* to confirm or *start over* to restart.',\n    languageChoice: 'Welcome! Please choose your language / Bienvenue! Veuillez choisir votre langue:\\n\\n1️⃣ English\\n2️⃣ Français\\n\\nReply with *1* or *2*',\n    mealDetailsLabel: '📋 Meal Details: {details}',\n    no: 'No',\n    yes: 'Yes'\n  },\n  fr: {\n    q1: 'Pourriez-vous confirmer votre nom complet ?',\n    q2: 'Allez-vous assister à notre cérémonie et réception ? (Oui/Non)',\n    q3: 'Dans combien de temps pourriez-vous confirmer votre présence ? (a) dans 24h (b) dans 3 jours (c) dans 1 semaine',\n    q4: 'Combien de places devons-nous réserver pour vous ? (1 ou 2)',\n    q5: 'Avez-vous des restrictions alimentaires ? (Oui/Non)',\n    q6b: 'Veuillez partager les détails de vos restrictions alimentaires.',\n    q7: 'Avez-vous un repas préféré ? (Oui/Non)',\n    q7b: 'Veuillez partager les détails de votre repas préféré.',\n    summary: `✅ Récapitulatif de l'inscription\\n\\n📋 Numéro: {number}\\n📞 Téléphone: {phone}\\n👤 Nom: {name}\\n🎟️ Présence: {attendance}\\n⏳ Délai de confirmation: {delay}\\n🪑 Places: {seats}\\n🥗 Restriction alimentaire: {restriction}\\n🍴 Détails alimentaires: {details}\\n🍽️ Repas préféré: {meal}\\n{mealDetails}\\n\\nSi tout est correct, veuillez répondre *oui* pour confirmer.\\nSi vous devez modifier vos informations, tapez *recommencer* pour redémarrer.`,\n    restart: 'Inscription redémarrée. Veuillez entrer à nouveau votre numéro de téléphone.',\n    complete: '🎉 Inscription terminée ! Vous pouvez maintenant poser des questions sur l\\'événement dans la langue de votre choix.',\n    confirmPrompt: 'Veuillez taper *oui* pour confirmer ou *recommencer* pour redémarrer.',\n    languageChoice: 'Welcome! Please choose your language / Bienvenue! Veuillez choisir votre langue:\\n\\n1️⃣ English\\n2️⃣ Français\\n\\nReply with *1* or *2*',\n    mealDetailsLabel: '📋 Détails du repas: {details}',\n    no: 'Non',\n    yes: 'Oui'\n  }\n};\n\n// === STRUCTURE DES DONNÉES ===\nlet updateData = {\n  Number,\n  Phonenumber: input.Phonenumber || '',\n  Name: input.Name || '',\n  Attendance: input.Attendance || '',\n  ConfirmationDelay: input.ConfirmationDelay || '',\n  Seats: input.Seats || '',\n  DietaryRestriction: input.DietaryRestriction || '',\n  DietaryDetails: input.DietaryDetails || '',\n  PreferredMeal: input.PreferredMeal || '',\n  MealDetails: input.MealDetails || '',\n  Status: userStatus,\n  Timestamp: Date.now(),\n  Response: ''\n};\n\nlet response = '';\nlet newStatus = userStatus;\n\n// === LOGIQUE D'INSCRIPTION ===\nif (userStatus === 'q1_pending') {\n  // Demande du choix de langue\n  response = translations.en.languageChoice;\n  newStatus = 'q1b_pending';\n  updateData.Phonenumber = userMessage;\n\n} else if (userStatus === 'q1b_pending') {\n  // Détection de la langue et ajout au status\n  if (userMessage === '1' || userMessage.toLowerCase().includes('english')) {\n    userLanguage = 'en';\n    response = translations.en.q1;\n    newStatus = 'q2_pending_en';  // LANGUE DANS LE STATUS\n  } else if (userMessage === '2' || userMessage.toLowerCase().includes('français') || userMessage.toLowerCase().includes('francais')) {\n    userLanguage = 'fr';\n    response = translations.fr.q1;\n    newStatus = 'q2_pending_fr';  // LANGUE DANS LE STATUS\n  } else {\n    response = translations.en.languageChoice;\n    newStatus = 'q1b_pending';\n  }\n\n} else if (userStatus.startsWith('q2_pending')) {\n  updateData.Name = userMessage;\n  const t = translations[userLanguage];\n  response = t.q2;\n  newStatus = `q3_pending_${userLanguage}`;\n\n} else if (userStatus.startsWith('q3_pending')) {\n  updateData.Attendance = userMessage;\n  const t = translations[userLanguage];\n  \n  // Vérifier si l'utilisateur dit non à la participation\n  const negativeAnswers = userLanguage === 'fr' \n    ? ['non', 'no'] \n    : ['no', 'non'];\n  \n  if (negativeAnswers.some(ans => userMessage.toLowerCase().includes(ans))) {\n    response = userLanguage === 'fr' \n      ? \"Merci de nous avoir informés. Vous pouvez maintenant poser des questions sur l'événement.\"\n      : \"Thank you for letting us know. You can now ask questions about the event.\";\n    newStatus = 'q9_pending';\n    updateData.Status = newStatus;\n    updateData.Response = response;\n    return { json: updateData };\n  } else {\n    response = t.q3;\n    newStatus = `q4_pending_${userLanguage}`;\n  }\n\n} else if (userStatus.startsWith('q4_pending')) {\n  updateData.ConfirmationDelay = userMessage;\n  const t = translations[userLanguage];\n  response = t.q4;\n  newStatus = `q5_pending_${userLanguage}`;\n\n} else if (userStatus.startsWith('q5_pending')) {\n  updateData.Seats = userMessage;\n  const t = translations[userLanguage];\n  response = t.q5;\n  newStatus = `q6_pending_${userLanguage}`;\n\n} else if (userStatus.startsWith('q6_pending')) {\n  updateData.DietaryRestriction = userMessage;\n  const t = translations[userLanguage];\n  const affirmativeAnswers = userLanguage === 'fr' \n    ? ['oui', 'yes'] \n    : ['yes', 'oui'];\n  \n  if (affirmativeAnswers.some(ans => userMessage.toLowerCase().includes(ans))) {\n    response = t.q6b;\n    newStatus = `q6b_pending_${userLanguage}`;\n  } else {\n    response = t.q7;\n    newStatus = `q7_pending_${userLanguage}`;\n    updateData.DietaryDetails = '';\n  }\n\n} else if (userStatus.startsWith('q6b_pending')) {\n  updateData.DietaryDetails = userMessage;\n  const t = translations[userLanguage];\n  response = t.q7;\n  newStatus = `q7_pending_${userLanguage}`;\n\n} else if (userStatus.startsWith('q7_pending')) {\n  updateData.PreferredMeal = userMessage;\n  const t = translations[userLanguage];\n  const affirmativeAnswers = userLanguage === 'fr' \n    ? ['oui', 'yes'] \n    : ['yes', 'oui'];\n  \n  if (affirmativeAnswers.some(ans => userMessage.toLowerCase().includes(ans))) {\n    response = t.q7b;\n    newStatus = `q7b_pending_${userLanguage}`;\n  } else {\n    const mealText = t.no;\n    response = t.summary\n      .replace('{number}', updateData.Number)\n      .replace('{phone}', updateData.Phonenumber)\n      .replace('{name}', updateData.Name)\n      .replace('{attendance}', updateData.Attendance)\n      .replace('{delay}', updateData.ConfirmationDelay)\n      .replace('{seats}', updateData.Seats)\n      .replace('{restriction}', updateData.DietaryRestriction)\n      .replace('{details}', updateData.DietaryDetails)\n      .replace('{meal}', mealText)\n      .replace('{mealDetails}', '');\n    newStatus = `q8_pending_${userLanguage}`;\n  }\n\n} else if (userStatus.startsWith('q7b_pending')) {\n  updateData.MealDetails = userMessage;\n  const t = translations[userLanguage];\n  const mealText = t.yes;\n  const mealDetailsText = t.mealDetailsLabel.replace('{details}', updateData.MealDetails);\n  \n  response = t.summary\n    .replace('{number}', updateData.Number)\n    .replace('{phone}', updateData.Phonenumber)\n    .replace('{name}', updateData.Name)\n    .replace('{attendance}', updateData.Attendance)\n    .replace('{delay}', updateData.ConfirmationDelay)\n    .replace('{seats}', updateData.Seats)\n    .replace('{restriction}', updateData.DietaryRestriction)\n    .replace('{details}', updateData.DietaryDetails)\n    .replace('{meal}', mealText)\n    .replace('{mealDetails}', '\\n' + mealDetailsText);\n  newStatus = `q8_pending_${userLanguage}`;\n\n} else if (userStatus.startsWith('q8_pending')) {\n  const t = translations[userLanguage];\n  const restartKeywords = userLanguage === 'fr' \n    ? ['recommencer', 'start over'] \n    : ['start over', 'recommencer'];\n  const confirmKeywords = userLanguage === 'fr' \n    ? ['oui', 'yes'] \n    : ['yes', 'oui'];\n  \n  if (restartKeywords.some(kw => userMessage.toLowerCase().includes(kw))) {\n    response = t.restart;\n    newStatus = \"q1_pending\";\n  } else if (confirmKeywords.some(kw => userMessage.toLowerCase().includes(kw))) {\n    response = t.complete;\n    newStatus = \"q9_pending\";\n  } else {\n    response = t.confirmPrompt;\n    newStatus = `q8_pending_${userLanguage}`;\n  }\n\n} else if (userStatus === \"q9_pending\") {\n  response = \"\";\n  newStatus = \"faq_mode\";\n}\n\n// === FINALISATION ===\nupdateData.Status = newStatus;\nupdateData.Response = response;\n\nreturn {\n  json: updateData\n};"
+      },
+      "id": "3478117c-f147-41e4-b7bf-b11a9122c5ff",
+      "name": "Question Flow Logic5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        176
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Extract Message Data": {
+      "main": [
+        [
+          {
+            "node": "Check User in Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User in Sheet": {
+      "main": [
+        [
+          {
+            "node": "User Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Exists?": {
+      "main": [
+        [
+          {
+            "node": "Create New User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Question Flow Logic5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create New User": {
+      "main": [
+        [
+          {
+            "node": "Set Question 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Question 1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reranker Cohere1": {
+      "ai_reranker": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_reranker",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update User Status": {
+      "main": [
+        [
+          {
+            "node": "FAQ Mode?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FAQ Mode?1": {
+      "main": [
+        [
+          {
+            "node": "Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input type": {
+      "main": [
+        [
+          {
+            "node": "Filter5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Webhook": {
+      "main": [
+        [
+          {
+            "node": "Input type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter5": {
+      "main": [
+        [
+          {
+            "node": "Extract Message Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question Flow Logic5": {
+      "main": [
+        [
+          {
+            "node": "Update User Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5c5d6ecc-bc5a-4d9b-967a-928ee2e52c79",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7f86f97c0e3517e37b5b76af0832ffb8dc1a424aaaef0463766e4de05752a6d6"
+  },
+  "id": "rTTD1sskqsHUI188",
+  "tags": []
+}
