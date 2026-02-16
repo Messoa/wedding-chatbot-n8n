@@ -10,7 +10,6 @@ Ce projet est un **agent IA conversationnel complet** connecté à WhatsApp. Il 
 
 **Cas d'usage concret :** Un invité envoie un message WhatsApp → le bot l'identifie (nouveau ou connu) → il l'inscrit ou reprend sa conversation → si l'invité pose une question, l'agent IA consulte la base de connaissances vectorielle et génère une réponse contextuelle précise — tout cela automatiquement, sans intervention humaine.
 
----
 
 ---
 
